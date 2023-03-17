@@ -1,4 +1,6 @@
-### Hi there 👋
+### Olá me chamo Gessé Duarte, tenho 28 anos e estou iniciando como programador.
+
+
 
 <!--
 **GesseDuarte/GesseDuarte** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
