@@ -1,0 +1,48 @@
+import PySimpleGUI as sg 
+import json 
+
+with open("arquivo.json", "r") as novo_arquivo: 
+    texto = novo_arquivo.read()
+    
+meu_json = list(json.loads(texto))
+
+sg.set_options(font=('Arial Bold', 30))
+
+layout = [
+    [sg.Text("Digite seu nome e sua idade: ", font=(None,30))],
+    [sg.Input(key='NOME')], 
+    [sg.Input(key= 'IDADE')],
+    [sg.Multiline(json.dumps(meu_json, indent=4), size=(40,5), disabled= True, key='SAIDA')],
+    [sg.Text(size=(40,1), key='SAIDA',)],
+[sg.Button('Ok'), sg.Button('Sair')]
+]
+
+janela = sg.Window('Janela do Python', layout, finalize=True)
+janela['NOME'].bind("<Return>", "_Enter")
+janela['IDADE'].bind("<Return>", "_Enter")
+
+while True:
+    event, values = janela.read()
+    
+    if event == sg.WINDOW_CLOSED or event == 'Sair':
+        break
+    
+    elif event == 'NOME' + "_Enter" and 'IDADE' + "_Enter":
+        pass
+        
+    pessoa = {
+        "nome": values["NOME"],
+        "idade": values["IDADE"]
+    }
+        
+    meu_json.append(pessoa)
+
+    texto = json.dumps(meu_json, indent=4)
+    janela['SAIDA'].update(f'{texto}')
+
+    with open("arquivo.json", "w") as novo_arquivo:
+        novo_arquivo.write(texto)
+            
+        meu_json = json.loads(texto)
+
+janela.close()
